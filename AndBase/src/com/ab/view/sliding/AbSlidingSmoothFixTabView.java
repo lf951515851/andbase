@@ -18,8 +18,8 @@ package com.ab.view.sliding;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
@@ -151,7 +151,7 @@ public class AbSlidingSmoothFixTabView extends LinearLayout {
 		DisplayMetrics mDisplayMetrics = AbAppUtil.getDisplayMetrics(context);
 		mWidth = mDisplayMetrics.widthPixels;
 		
-		FragmentManager mFragmentManager = ((FragmentActivity)this.context).getFragmentManager();
+		FragmentManager mFragmentManager = ((FragmentActivity)this.context).getSupportFragmentManager();
 		mFragmentPagerAdapter = new AbFragmentPagerAdapter(
 				mFragmentManager, pagerItemList);
 		mViewPager.setAdapter(mFragmentPagerAdapter);

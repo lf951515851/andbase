@@ -63,14 +63,14 @@ public class SlidingMenuLeftRightActivity extends SlidingFragmentActivity {
  		
  		//主视图的Fragment添加
 	    setContentView(R.layout.sliding_menu_content);
-        getFragmentManager()
+	    getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.content_frame, new FragmentLoad())
 		.commit();
  		
  		//menu1视图的Fragment添加
 		menu.setMenu(R.layout.sliding_menu_menu);
-		getFragmentManager()
+		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.menu_frame, new FragmentLoad())
 		.commit();
@@ -78,7 +78,8 @@ public class SlidingMenuLeftRightActivity extends SlidingFragmentActivity {
  		//menu2视图的Fragment添加
 		menu.setSecondaryMenu(R.layout.sliding_menu_menu2);
 		menu.setSecondaryShadowDrawable(R.drawable.shadow_right);
-		getFragmentManager()
+		
+		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.menu_frame_two, new FragmentLoad())
 		.commit();

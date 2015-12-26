@@ -18,8 +18,8 @@ package com.ab.view.sliding;
 import java.util.ArrayList;
 import java.util.List;
 import android.annotation.SuppressLint;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -129,7 +129,7 @@ public class AbSlidingTabView extends LinearLayout {
         super(context, attrs);
         this.context = context;
         initView();
-  		FragmentManager mFragmentManager = ((FragmentActivity)this.context).getFragmentManager();
+  		FragmentManager mFragmentManager = ((FragmentActivity)this.context).getSupportFragmentManager();
 		mFragmentPagerAdapter = new AbFragmentPagerAdapter(
 				mFragmentManager, pagerItemList);
 		mViewPager.setAdapter(mFragmentPagerAdapter);

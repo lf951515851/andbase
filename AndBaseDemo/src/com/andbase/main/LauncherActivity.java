@@ -37,20 +37,20 @@ public class LauncherActivity extends AbActivity {
 		application = (MyApplication) abApplication;
 		launcherView = (LinearLayout) this.findViewById(R.id.launcherView);
 		AbViewUtil.scaleContentView(launcherView);
-		// Font path
-		String fontPath1 = "fonts/jianxiqian.ttf";
-		String fontPath2 = "fonts/jianchilun.ttf";
+//		// Font path
+//		String fontPath1 = "fonts/jianxiqian.ttf";
+//		String fontPath2 = "fonts/jianchilun.ttf";
 		TextView title1 = (TextView) findViewById(R.id.textView1);
-		Typeface tf = Typeface.createFromAsset(getAssets(), fontPath2);
-		title1.setTypeface(tf);
-
+//		Typeface tf = Typeface.createFromAsset(getAssets(), fontPath2);
+//		title1.setTypeface(tf);
+//
 		TextView title2 = (TextView) findViewById(R.id.textView2);
-		Typeface tf2 = Typeface.createFromAsset(getAssets(), fontPath1);
-		title2.setTypeface(tf2);
+//		Typeface tf2 = Typeface.createFromAsset(getAssets(), fontPath1);
+//		title2.setTypeface(tf2);
 		
 		
 		TextView version = (TextView) findViewById(R.id.version);
-		version.setTypeface(tf2);
+//		version.setTypeface(tf2);
 		
 		PackageInfo packageInfo = AbAppUtil.getPackageInfo(this);
 		version.setText("V"+packageInfo.versionName);

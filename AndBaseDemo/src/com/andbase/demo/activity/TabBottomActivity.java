@@ -4,7 +4,7 @@ package com.andbase.demo.activity;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;

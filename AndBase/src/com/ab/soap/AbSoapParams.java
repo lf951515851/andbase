@@ -16,12 +16,10 @@
 package com.ab.soap;
 
 import java.lang.reflect.Field;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.http.message.BasicNameValuePair;
+import org.ksoap2.serialization.PropertyInfo;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,7 +34,7 @@ import org.apache.http.message.BasicNameValuePair;
 public class AbSoapParams {
 
 	/** 参数. */
-	protected ConcurrentHashMap<String, String> params;
+	protected List<PropertyInfo> params;
 
 	/**
 	 * Instantiates a new ab soap params.
@@ -60,7 +58,10 @@ public class AbSoapParams {
 				String fieldName = field.getName();
 				field.setAccessible(true);
 				String fieldValue = (String) field.get(obj);
-				params.put(fieldName, fieldValue);
+				PropertyInfo info=new PropertyInfo();
+				info.setName(fieldName);
+				info.setValue(fieldValue);
+				params.add(info);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,7 +86,7 @@ public class AbSoapParams {
 	 * 初始化.
 	 */
 	private void init() {
-		params = new ConcurrentHashMap<String, String>();
+		params = new ArrayList<PropertyInfo>();
 	}
 
 	/**
@@ -96,9 +97,27 @@ public class AbSoapParams {
 	 * @param value
 	 *            the value
 	 */
-	public void put(String key, String value) {
+	public void put(String key, Object value) {
 		if (key != null && value != null) {
-			params.put(key, value);
+			PropertyInfo info=new PropertyInfo();
+			info.setName(key);
+			info.setValue(value);
+			params.add(info);
+		}
+	}
+	
+	/**
+	 * 增加一对请求参数.
+	 * 
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 */
+	public void put(PropertyInfo  info) {
+		if (info != null ) {
+			
+			params.add(info);
 		}
 	}
 
@@ -117,12 +136,11 @@ public class AbSoapParams {
 	 * 
 	 * @return the params list
 	 */
-	public List<BasicNameValuePair> getParamsList() {
-		List<BasicNameValuePair> paramsList = new LinkedList<BasicNameValuePair>();
-		for (ConcurrentHashMap.Entry<String, String> entry : params.entrySet()) {
-			paramsList.add(new BasicNameValuePair(entry.getKey(), entry
-					.getValue()));
-		}
-		return paramsList;
+	public List<PropertyInfo> getParamsList() {
+		
+		return params;
+		
 	}
+	
+	
 }

@@ -22,6 +22,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
@@ -58,7 +59,7 @@ public class AbSoapClient {
 	private boolean mDotNet = true;
 
 	/**  soap参数. */
-	private AbSoapParams mParams = null;
+	private SoapObject mParams = null;
 	
 	/** 超时时间. */
     public static final int DEFAULT_SOCKET_TIMEOUT = 10000;
@@ -87,7 +88,7 @@ public class AbSoapClient {
 	 * @param Params the params
 	 * @param listener the listener
 	 */
-	public void call(final String url,final String nameSpace,final String methodName, AbSoapParams Params,
+	public void call(final String url,final String nameSpace,final String methodName, SoapObject Params,
 			final AbSoapListener listener) {
 		this.mParams = Params;
 
@@ -122,14 +123,12 @@ public class AbSoapClient {
 	 * @param params the params
 	 * @param listener the listener
 	 */
-	public void doCall(String url,String nameSpace,String methodName,AbSoapParams params, AbSoapListener listener) {
+	public void doCall(String url,String nameSpace,String methodName,SoapObject params, AbSoapListener listener) {
 		try {
 			SoapObject request = new SoapObject(nameSpace, methodName);
 			// 传递参数
-			List<BasicNameValuePair> paramsList = params.getParamsList();
-			for (NameValuePair nameValuePair : paramsList) {
-				request.addProperty(nameValuePair.getName(), nameValuePair.getValue());
-			}
+			request.addSoapObject(params);
+			
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
 			envelope.bodyOut = request;

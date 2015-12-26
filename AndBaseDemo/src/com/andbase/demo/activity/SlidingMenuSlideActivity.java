@@ -38,7 +38,7 @@ public class SlidingMenuSlideActivity extends AbActivity {
 		mAbTitleBar.getLogoView().setBackgroundResource(R.drawable.button_selector_menu);
 		
         //主视图的Fragment添加
-		getFragmentManager()
+		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.content_frame, new FragmentLoad())
 		.commit();
@@ -55,7 +55,7 @@ public class SlidingMenuSlideActivity extends AbActivity {
 		
 		//menu视图的Fragment添加
 		menu.setMenu(R.layout.sliding_menu_menu);
-		getFragmentManager()
+		getSupportFragmentManager()
 		.beginTransaction()
 		.replace(R.id.menu_frame, new FragmentLoad())
 		.commit();

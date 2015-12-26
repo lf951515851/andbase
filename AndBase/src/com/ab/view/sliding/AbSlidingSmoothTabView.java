@@ -18,8 +18,8 @@ package com.ab.view.sliding;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.FragmentActivity;
@@ -160,7 +160,7 @@ public class AbSlidingSmoothTabView extends LinearLayout {
 			AbLogUtil.e(AbSlidingSmoothTabView.class, "构造AbSlidingSmoothTabView的参数context,必须是FragmentActivity的实例。");
 		}
 		
-		FragmentManager mFragmentManager = ((FragmentActivity)this.context).getFragmentManager();
+		FragmentManager mFragmentManager = ((FragmentActivity)this.context).getSupportFragmentManager();
 		mFragmentPagerAdapter = new AbFragmentPagerAdapter(
 				mFragmentManager, pagerItemList);
 		mViewPager.setAdapter(mFragmentPagerAdapter);

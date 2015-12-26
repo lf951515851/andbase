@@ -60,9 +60,10 @@ public class SoapActivity extends AbActivity {
 				String urlString = "http://webservice.webxml.com.cn/WebServices/MobileCodeWS.asmx?op=getMobileCodeInfo"; 
                 String nameSpace = "http://WebXml.com.cn/";
                 String methodName = "getMobileCodeInfo";
-                AbSoapParams params = new AbSoapParams();
-                params.put("mobileCode", "15150509589");
-                params.put("userID", "");
+                SoapObject params=new SoapObject();
+                params.addProperty("mobileCode", "15150509589");
+                params.addProperty("userID","");
+                
 				
 				mAbSoapUtil.call(urlString,nameSpace,methodName,params, new AbSoapListener() {
 					

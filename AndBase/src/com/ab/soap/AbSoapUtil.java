@@ -15,6 +15,8 @@
  */
 package com.ab.soap;
 
+import org.ksoap2.serialization.SoapObject;
+
 import android.content.Context;
 
 // TODO: Auto-generated Javadoc
@@ -76,7 +78,7 @@ public class AbSoapUtil {
 	 *            the listener
 	 */
 	public void call(String url, String nameSpace, String methodName,
-			AbSoapParams params, AbSoapListener listener) {
+			SoapObject params, AbSoapListener listener) {
 		mClient.call(url, nameSpace, methodName, params, listener);
 	}
 
