@@ -127,13 +127,17 @@ public class AbSoapClient {
 		try {
 			SoapObject request = new SoapObject(nameSpace, methodName);
 			// 传递参数
+			if(params!=null){
 			request.addSoapObject(params);
+			}
 			
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
 			envelope.bodyOut = request;
 			envelope.dotNet = mDotNet;
 			envelope.setOutputSoapObject(request);
+			MarshalDouble md = new MarshalDouble();
+		    md.register(envelope);
 			HttpTransportSE httpTransportSE = new HttpTransportSE(url,mTimeout);
 			httpTransportSE.debug = true;
 

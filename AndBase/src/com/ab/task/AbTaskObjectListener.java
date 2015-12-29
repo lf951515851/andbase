@@ -29,19 +29,19 @@ package com.ab.task;
  * @version v1.0
  * @date：2011-12-10 下午11:52:13
  */
-public abstract class AbTaskObjectListener extends AbTaskListener{
+public abstract class AbTaskObjectListener<T> extends AbTaskListener{
 	
 	/**
 	 * 执行开始
 	 * @return 返回的结果对象
 	 */
-    public abstract <T extends Object> T getObject();
+    public abstract  T getObject();
     
     /**
      * 执行开始后调用.
      * @param obj
      */
-    public abstract <T extends Object> void update(T obj); 
+    public abstract  void update(T obj); 
     
 	
 }

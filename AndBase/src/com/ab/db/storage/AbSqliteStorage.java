@@ -90,11 +90,11 @@ public class AbSqliteStorage {
 		 if (entity != null){
 	    	
 	    	AbTaskItem item = new AbTaskItem();
-	    	item.setListener(new AbTaskObjectListener() {
+	    	item.setListener(new AbTaskObjectListener<Long>() {
 	    		
 	    		@SuppressWarnings({ "hiding", "unchecked" })
 				@Override
-				public <T> T getObject() {
+				public Long getObject() {
 					long rowId = -1;
 					try {
 						//(1)获取数据库 
@@ -110,12 +110,12 @@ public class AbSqliteStorage {
 						//(3)关闭数据库
 						dao.closeDatabase();
 					}
-				  	return (T)Long.valueOf(rowId);
+				  	return Long.valueOf(rowId);
 				}
 				
 				@SuppressWarnings("hiding")
 				@Override
-				public <T> void update(T obj) {
+				public  void update(Long obj) {
 				    long rowId = (Long)obj;
 				    if (paramDataInsertListener != null){
 				    	if(rowId > -1){
@@ -150,11 +150,11 @@ public class AbSqliteStorage {
 		 if (entityList != null){
 			
 	    	AbTaskItem item = new AbTaskItem();
-	    	item.setListener(new AbTaskObjectListener() {
+	    	item.setListener(new AbTaskObjectListener<long[]>() {
 	    		
 	    		@SuppressWarnings({ "hiding", "unchecked" })
 				@Override
-				public <T> T getObject() {
+				public long[] getObject() {
 	    			long[] rowIds = null;
 					try {
 						//(1)获取数据库 
@@ -170,17 +170,17 @@ public class AbSqliteStorage {
 						//(3)关闭数据库
 						dao.closeDatabase();
 					}
-					return (T)rowIds;
+					return rowIds;
 			    	
 				}
 				
 				@SuppressWarnings("hiding")
 				@Override
-				public <T> void update(T obj) {
+				public  void update(long[] obj) {
 					long sum = -1;
 					long[] rowIdsBase = null;
 				    if(obj!=null){
-				    	Long[] rowIds = (Long[])obj;
+				    	long[] rowIds = obj;
 				    	rowIdsBase = new long[rowIds.length];
 					    for(int i=0;i<rowIds.length;i++){
 					    	long rowId = rowIds[i];
@@ -274,11 +274,11 @@ public class AbSqliteStorage {
 		 if (entity != null){
 	    	
 	    	AbTaskItem item = new AbTaskItem();
-	    	item.setListener(new AbTaskObjectListener() {
+	    	item.setListener(new AbTaskObjectListener<Integer>() {
 	    		
 				@SuppressWarnings({ "hiding", "unchecked" })
 				@Override
-				public <T> T getObject() {
+				public Integer getObject() {
 					int rows = 0;
 				    try {
 						//(1)获取数据库 
@@ -294,12 +294,12 @@ public class AbSqliteStorage {
 						//(3)关闭数据库
 						dao.closeDatabase();
 					}
-				    return (T)Integer.valueOf(rows);
+				    return Integer.valueOf(rows);
 				}
 				
                 @SuppressWarnings("hiding")
 				@Override
-				public <T> void update(T obj) {
+				public  void update(Integer obj) {
                 	 int rows = (Integer)obj;
                 	 if (paramDataUpdateListener != null){
                 		 paramDataUpdateListener.onSuccess(rows);
@@ -332,11 +332,11 @@ public class AbSqliteStorage {
 		 if (entityList != null){
 	    	
 	    	AbTaskItem item = new AbTaskItem();
-	    	item.setListener(new AbTaskObjectListener() {
+	    	item.setListener(new AbTaskObjectListener<Integer>() {
 				
 				@SuppressWarnings({ "unchecked", "hiding" })
 				@Override
-				public <T> T getObject() {
+				public Integer getObject() {
 					int rows = 0;
 					try {
 						//(1)获取数据库 
@@ -352,13 +352,13 @@ public class AbSqliteStorage {
 						//(3)关闭数据库
 						dao.closeDatabase();
 					}
-					return (T)Integer.valueOf(rows);
+					return Integer.valueOf(rows);
 			    	
 				}
 				
 				@SuppressWarnings("hiding")
 				@Override
-				public <T> void update(T obj) {
+				public  void update(Integer obj) {
 				    try {
 						int ret = (Integer)obj;
 						if (paramDataUpdateListener != null){
@@ -398,11 +398,11 @@ public class AbSqliteStorage {
 	public <T> void deleteData(final AbStorageQuery storageQuery,final AbDBDaoImpl<T> dao, final AbDataDeleteListener paramDataDeleteListener){
 		 
 	    	AbTaskItem item = new AbTaskItem();
-	    	item.setListener(new AbTaskObjectListener() {
+	    	item.setListener(new AbTaskObjectListener<Integer>() {
 	    		
 	    		@SuppressWarnings({ "unchecked", "hiding" })
 				@Override
-				public <T> T getObject() {
+				public Integer getObject() {
 	    			int rows = 0;
 					try {
 						//(1)获取数据库 
@@ -418,12 +418,12 @@ public class AbSqliteStorage {
 						//(3)关闭数据库
 						dao.closeDatabase();
 					}
-					return (T)Integer.valueOf(rows);
+					return Integer.valueOf(rows);
 				}
 	    		
 				@SuppressWarnings("hiding")
 				@Override
-				public <T> void update(T obj) {
+				public  void update(Integer obj) {
 				    int rows = (Integer)obj;
 				    if (paramDataDeleteListener != null){
 				    	if(rows >= 0){

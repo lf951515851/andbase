@@ -253,11 +253,18 @@ public class AbImageLoader {
     		}
     		
     		AbTaskItem item = new AbTaskItem();
-            item.setListener(new AbTaskObjectListener(){
+            item.setListener(new AbTaskObjectListener<AbBitmapResponse>(){
             	
-                @Override
-                public <T> void update(T entity) {
-                	AbBitmapResponse response = (AbBitmapResponse)entity;
+                
+
+    			@Override
+                public AbBitmapResponse getObject() {
+    				return getBitmapResponse(url, desiredWidth, desiredHeight);
+                }
+
+				@Override
+				public void update(AbBitmapResponse obj) {
+					AbBitmapResponse response = (AbBitmapResponse)obj;
                 	if(response == null){
                 		if(onImageListener!=null){
                 			onImageListener.onError(imageView);
@@ -278,13 +285,8 @@ public class AbImageLoader {
                     	}
                 		AbLogUtil.d(AbImageLoader.class, "获取到图片："+bitmap);
                 	}
-                	
-                }
-
-    			@Override
-                public AbBitmapResponse getObject() {
-    				return getBitmapResponse(url, desiredWidth, desiredHeight);
-                }
+					
+				}
                 
             });
             
@@ -326,11 +328,21 @@ public class AbImageLoader {
 			}
     		
     		AbTaskItem item = new AbTaskItem();
-            item.setListener(new AbTaskObjectListener(){
-            	
-                @Override
-                public <T> void update(T entity) {
-                	AbBitmapResponse response = (AbBitmapResponse)entity;
+            item.setListener(new AbTaskObjectListener<AbBitmapResponse>(){
+
+    			@Override
+                public AbBitmapResponse getObject() {
+                    try {
+                    	return getBitmapResponse(url, desiredWidth, desiredHeight);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return null;
+                }
+
+				@Override
+				public void update(AbBitmapResponse obj) {
+					AbBitmapResponse response = (AbBitmapResponse)obj;
                 	if(response == null){
                 		if(onImageListener!=null){
                 			onImageListener.onError();
@@ -350,18 +362,8 @@ public class AbImageLoader {
                     	}
                 		AbLogUtil.d(AbImageLoader.class, "获取到图片："+bitmap);
                 	}
-                	
-                }
-
-    			@Override
-                public AbBitmapResponse getObject() {
-                    try {
-                    	return getBitmapResponse(url, desiredWidth, desiredHeight);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    return null;
-                }
+					
+				}
                 
             });
             

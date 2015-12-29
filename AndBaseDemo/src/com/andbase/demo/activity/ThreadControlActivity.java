@@ -95,7 +95,7 @@ public class ThreadControlActivity extends AbActivity {
 				//获取队列
 				//定义异步执行的对象
 		    	AbTaskItem item1 = new AbTaskItem();
-				item1.setListener(new AbTaskObjectListener() {
+				item1.setListener(new AbTaskObjectListener<String>() {
 
 					
 					@SuppressWarnings("unchecked")
@@ -112,7 +112,7 @@ public class ThreadControlActivity extends AbActivity {
 					}
 
 					@Override
-					public <T> void update(T obj) {
+					public  void update(String obj) {
 						AbToastUtil.showToast(ThreadControlActivity.this,"执行完成1,"+(String)obj);
 					}
 
@@ -251,10 +251,10 @@ public class ThreadControlActivity extends AbActivity {
 	public void loadObjectDataTask(){
         AbTask task = new AbTask();
         final AbTaskItem item = new AbTaskItem();
-        item.setListener(new AbTaskObjectListener(){
+        item.setListener(new AbTaskObjectListener<String>(){
 
             @Override
-            public <T> void update(T entity) {
+            public  void update(String entity) {
                 AbDialogUtil.removeDialog(ThreadControlActivity.this);
                 AbToastUtil.showToast(ThreadControlActivity.this,(String)entity);
                 Log.d("TAG", "执行完成:"+(String)entity);
