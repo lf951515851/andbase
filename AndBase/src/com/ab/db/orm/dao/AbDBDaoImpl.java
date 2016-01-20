@@ -178,7 +178,7 @@ public class AbDBDaoImpl<T> extends AbBasicDBDao implements AbDBDao<T> {
 	 * @param selectionArgs 绑定变量值
 	 * @param clazz  返回的对象类型
 	 * @return the list
-	 * @see com.ab.db.orm.dao.AbDBDao#rawQuery(java.lang.String, java.lang.String[])
+	 * @see com.ab.db.orm.dao.AbDBDao#rawQuery(java.lang.String, java.lang.String[],Class<T> clazz)
 	 */
 	@Override
 	public List<T> rawQuery(String sql, String[] selectionArgs,Class<T> clazz) {
@@ -200,6 +200,34 @@ public class AbDBDaoImpl<T> extends AbBasicDBDao implements AbDBDao<T> {
 		}
 		
 		return list;
+	}
+	
+	/**
+	 * 
+	 * 描述：一种更灵活的方式查询，不支持对象关联，可以写完整的sql.
+	 * @param sql 完整的sql如：select * from a ,b where a.id=b.id and a.id = ?
+	 * @param selectionArgs 绑定变量值
+	 * @return Cursor
+	 * @see com.ab.db.orm.dao.AbDBDao#rawQuery(java.lang.String, java.lang.String[])
+	 */
+	@Override
+	public Cursor rawQuery(String sql, String[] selectionArgs) {
+		Cursor cursor = null;
+		try {
+			lock.lock();
+			checkDBOpened();
+			AbLogUtil.d(AbDBDaoImpl.class, "[rawQuery]: " + getLogSql(sql, selectionArgs));
+			cursor = db.rawQuery(sql, selectionArgs);
+			
+		} catch (Exception e) {
+			AbLogUtil.e(AbDBDaoImpl.class, "[rawQuery] from DB Exception.");
+			e.printStackTrace();
+		} finally {
+			
+			lock.unlock();
+		}
+		
+		return cursor;
 	}
 
 	/**
@@ -1206,4 +1234,6 @@ public class AbDBDaoImpl<T> extends AbBasicDBDao implements AbDBDao<T> {
             throw new RuntimeException("先调用 startReadableDatabase()或者startWritableDatabase(boolean transaction)初始化数据库。");
         }
 	}
+
+	
 }

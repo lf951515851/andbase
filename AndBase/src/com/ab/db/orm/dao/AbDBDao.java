@@ -18,6 +18,7 @@ package com.ab.db.orm.dao;
 import java.util.List;
 import java.util.Map;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
 // TODO: Auto-generated Javadoc
@@ -142,6 +143,15 @@ public interface AbDBDao<T> {
 	 * @return 映射实体列表
 	 */
 	public abstract List<T> rawQuery(String sql, String[] selectionArgs,Class<T> clazz);
+	
+	/**
+	 * 
+	 * 执行查询语句..
+	 * @param sql sql语句
+	 * @param selectionArgs 绑定变量的参数值
+	 * @return Cursor结果集
+	 */
+	public abstract Cursor rawQuery(String sql, String[] selectionArgs);
 
 	/**
 	 * 查询列表.
