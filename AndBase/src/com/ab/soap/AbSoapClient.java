@@ -125,17 +125,20 @@ public class AbSoapClient {
 	 */
 	public void doCall(String url,String nameSpace,String methodName,SoapObject params, AbSoapListener listener) {
 		try {
-			SoapObject request = new SoapObject(nameSpace, methodName);
-			// 传递参数
-			if(params!=null){
-			request.addSoapObject(params);
-			}
+//			SoapObject request = new SoapObject(nameSpace, methodName);
+//			// 传递参数
+//			if(params!=null){
+//				for(SoapObject param:params){
+//					request.addSoapObject(param);
+//				}
+//			
+//			}
 			
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
-			envelope.bodyOut = request;
+			envelope.bodyOut = params;
 			envelope.dotNet = mDotNet;
-			envelope.setOutputSoapObject(request);
+			envelope.setOutputSoapObject(params);
 			MarshalDouble md = new MarshalDouble();
 		    md.register(envelope);
 			HttpTransportSE httpTransportSE = new HttpTransportSE(url,mTimeout);
