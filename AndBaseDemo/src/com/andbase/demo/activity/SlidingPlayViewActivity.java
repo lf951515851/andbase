@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ab.activity.AbActivity;
+import com.ab.util.AbImageUtil;
 import com.ab.util.AbToastUtil;
 import com.ab.view.sliding.AbSlidingPlayView;
 import com.ab.view.titlebar.AbTitleBar;
@@ -50,7 +51,7 @@ public class SlidingPlayViewActivity extends AbActivity {
 		mPlayText2.setText("33333333333333333");
 		mPlayImage2.setBackgroundResource(R.drawable.pic3);
 
-		mSlidingPlayView.setNavPageResources(R.drawable.play_display,R.drawable.play_hide);
+		mSlidingPlayView.setPageLineImage(AbImageUtil.drawableToBitmap(getResources().getDrawable(R.drawable.play_display))   ,AbImageUtil.drawableToBitmap(getResources().getDrawable(R.drawable.play_hide)));
 		mSlidingPlayView.setNavHorizontalGravity(Gravity.RIGHT);
 		mSlidingPlayView.addView(mPlayView);
 		mSlidingPlayView.addView(mPlayView1);

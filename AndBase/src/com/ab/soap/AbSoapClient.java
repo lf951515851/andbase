@@ -22,6 +22,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
+import org.ksoap2.serialization.MarshalBase64;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -59,7 +60,7 @@ public class AbSoapClient {
 	private boolean mDotNet = true;
 
 	/**  soap参数. */
-	private SoapObject mParams = null;
+	private Object[] mParams = null;
 	
 	/** 超时时间. */
     public static final int DEFAULT_SOCKET_TIMEOUT = 10000;
@@ -80,15 +81,16 @@ public class AbSoapClient {
 	}
 
 	/**
-	 * Call.
-	 *
-	 * @param url the url
-	 * @param nameSpace the name space
-	 * @param methodName the method name
-	 * @param Params the params
-	 * @param listener the listener
+	 * 
+	 * 非线程方法.
+	 * @param url
+	 * @param nameSpace
+	 * @param methodName
+	 * @param Params
+	 * 包含PropertyInfo,SoapObject的数组
+	 * @param listener
 	 */
-	public void call(final String url,final String nameSpace,final String methodName, SoapObject Params,
+	public void call(final String url,final String nameSpace,final String methodName, Object[] Params,
 			final AbSoapListener listener) {
 		this.mParams = Params;
 
@@ -101,16 +103,11 @@ public class AbSoapClient {
 
 		listener.sendStartMessage();
 
-		mExecutorService.execute(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					doCall(url,nameSpace,methodName,mParams,listener);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		try {
+			doCall(url,nameSpace,methodName,mParams,listener);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -121,26 +118,32 @@ public class AbSoapClient {
 	 * @param nameSpace the name space
 	 * @param methodName the method name
 	 * @param params the params
+	 * 包含PropertyInfo,SoapObject的数组
 	 * @param listener the listener
 	 */
-	public void doCall(String url,String nameSpace,String methodName,SoapObject params, AbSoapListener listener) {
+	public void doCall(String url,String nameSpace,String methodName,Object[] params, AbSoapListener listener) {
 		try {
-//			SoapObject request = new SoapObject(nameSpace, methodName);
-//			// 传递参数
-//			if(params!=null){
-//				for(SoapObject param:params){
-//					request.addSoapObject(param);
-//				}
-//			
-//			}
+			SoapObject request = new SoapObject(nameSpace, methodName);
+            if(params!=null) {
+                for (Object param : params
+                        ) {
+                    if (param instanceof PropertyInfo) {
+                        request.addProperty((PropertyInfo) param);
+                    } else {
+                        request.addSoapObject((SoapObject) param);
+                    }
+                }
+            }
 			
 			SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
 					SoapEnvelope.VER11);
-			envelope.bodyOut = params;
+			
 			envelope.dotNet = mDotNet;
-			envelope.setOutputSoapObject(params);
+			envelope.setOutputSoapObject(request);
 			MarshalDouble md = new MarshalDouble();
 		    md.register(envelope);
+		    //MarshalBase64 md1=new MarshalBase64();
+		    //md1.register(envelope);
 			HttpTransportSE httpTransportSE = new HttpTransportSE(url,mTimeout);
 			httpTransportSE.debug = true;
 

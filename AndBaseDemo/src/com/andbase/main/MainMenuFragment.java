@@ -91,7 +91,7 @@ public class MainMenuFragment extends Fragment {
 					@Override
 					public void get() {
 						try {
-							AbFileUtil.clearDownloadFile();
+							AbFileUtil.clearDownloadFile(mActivity);
 							AbImageBaseCache.getInstance().clearBitmap();
 						} catch (Exception e) {
 							AbToastUtil.showToastInThread(mActivity,

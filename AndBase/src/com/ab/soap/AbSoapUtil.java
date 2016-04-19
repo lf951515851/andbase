@@ -74,11 +74,12 @@ public class AbSoapUtil {
 	 *            the method name
 	 * @param params
 	 *            the params
+	 *            包含PropertyInfo,SoapObject的数组
 	 * @param listener
 	 *            the listener
 	 */
 	public void call(String url, String nameSpace, String methodName,
-			SoapObject params, AbSoapListener listener) {
+			Object[] params, AbSoapListener listener) {
 		mClient.call(url, nameSpace, methodName, params, listener);
 	}
 

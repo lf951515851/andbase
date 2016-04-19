@@ -940,8 +940,11 @@ public class AbFileUtil {
 	 *
 	 * @return true, if successful
 	 */
-    public static boolean clearDownloadFile() {
+    public static boolean clearDownloadFile(Context context) {
        try {
+    	   if(downloadRootDir == null){
+   			initFileDir(context);
+   			}
 		   File fileDirectory = new File(downloadRootDir);
 		   deleteFile(fileDirectory);
 	   } catch (Exception e) {
